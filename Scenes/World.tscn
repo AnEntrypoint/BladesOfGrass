@@ -1,10 +1,10 @@
 [gd_scene load_steps=13 format=3 uid="uid://diobrkjbvcdnm"]
 
+[ext_resource type="PackedScene" uid="uid://b72yprif5s742" path="res://Scenes/player2.tscn" id="1_lhywq"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://Assets/textures/grids/Dark/texture_05.png" id="2_biwx7"]
 [ext_resource type="Texture2D" uid="uid://djg8y25y06h5n" path="res://Assets/textures/grids/Green/texture_09.png" id="3_tqyb0"]
 [ext_resource type="Texture2D" uid="uid://cm5m7nr7dugjd" path="res://Assets/textures/grids/Purple/texture_09.png" id="4_o4fqm"]
 [ext_resource type="Texture2D" uid="uid://b58xv1joypxo5" path="res://Assets/textures/grids/Orange/texture_09.png" id="5_m1fv4"]
-[ext_resource type="PackedScene" uid="uid://bslv2lfbdrdtc" path="res://Scenes/Player_OLD.tscn" id="5_r3d1y"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4uteq"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -41,7 +41,7 @@ uv1_triplanar = true
 
 [node name="world" type="Node3D"]
 
-[node name="Player" parent="." instance=ExtResource("5_r3d1y")]
+[node name="Player" parent="." instance=ExtResource("1_lhywq")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.341574, 0.813939, -0.469926, -1.49013e-08, 0.499998, 0.866027, 0.939855, -0.295812, 0.170786, 0, 4.16747, 0)

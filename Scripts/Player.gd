@@ -21,17 +21,20 @@ var lookCam = null
 
 @onready var arm := $Systems/Camera/SpringArm3D
 @onready var mesh := $Mesh
-@onready var anim := $MainCharacter/AnimationPlayer
+#@onready var anim := $MainCharacter/AnimationPlayer
+@onready var anim := $Mesh/Lenny2/AnimationPlayer
 @onready var animTree := $AnimationTree
 @onready var checkFloor := $Systems/CheckFloor
-@onready var skeleton := $Mesh/Charater/Armature/Skeleton3D
+#@onready var skeleton := $Mesh/Charater/Armature/Skeleton3D
+@onready var skeleton := $"Mesh/Lenny2/Mixamo RIG/Skeleton3D"
 @onready var Cameras := $Systems/Camera
 @onready var camFp := $Systems/Camera/FirstPersonCamera
-@onready var headBone := $Mesh/Charater/Armature/Skeleton3D/HeadBone
+#@onready var headBone := $Mesh/Charater/Armature/Skeleton3D/HeadBone
+@onready var headBone = %HeadBone
 @onready var camFpc := $%FPC
 @onready var camTpc := $%TPC
 @onready var StandCollision := $StandCollision
-@onready var ChrouchCollision := $ChrouchCollision
+@onready var CrouchCollision := $CrouchCollision
 
 @export_enum("ThirdPerson", "FirstPerson") var cameraType:int = 0 : set = cameraUpdated
 
@@ -60,10 +63,10 @@ func _physics_process(delta):
 		
 		velocity.y = JUMP_VELOCITY
 	
-	if Input.is_action_just_pressed("crouch"):
+	if Input.is_action_just_pressed("Crouch"):
 		crouch = !crouch
 		StandCollision.disabled = crouch
-		ChrouchCollision.disabled = !crouch
+		CrouchCollision.disabled = !crouch
 		animTree.set("parameters/CrouchStand/transition_request", ["Stand","Crouch"][int(crouch)])
 	
 	if Input.is_action_just_pressed("camSwitch"):
