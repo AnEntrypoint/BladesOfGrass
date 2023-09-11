@@ -15,7 +15,7 @@ var sens = .05
 func _ready():
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CAPTURED)
 
-func _process(delta):
+func _process(_delta):
 	boneTransform.global_position = headBone.global_position
 	boneTransform.global_rotation.x = headBone.global_rotation.x
 	
@@ -45,7 +45,7 @@ func _unhandled_input(event):
 
 
 
-func transition(cam):
+func transition(_cam):
 	pass
 #	var _tween = create_tween()
 #	_tween.set_trans(Tween.TRANS_EXPO)

@@ -16,25 +16,26 @@ var airControl = .2
 var SPEED = 0
 var crouch = false
 var jumping = false
+var running = false
 var lookCam = null
 
 
-@onready var arm := $Systems/Camera/SpringArm3D
-@onready var mesh := $Mesh
-#@onready var anim := $MainCharacter/AnimationPlayer
-@onready var anim := $Mesh/Lenny2/AnimationPlayer
-@onready var animTree := $AnimationTree
-@onready var checkFloor := $Systems/CheckFloor
-#@onready var skeleton := $Mesh/Charater/Armature/Skeleton3D
-@onready var skeleton := $"Mesh/Lenny2/Mixamo RIG/Skeleton3D"
 @onready var Cameras := $Systems/Camera
 @onready var camFp := $Systems/Camera/FirstPersonCamera
-#@onready var headBone := $Mesh/Charater/Armature/Skeleton3D/HeadBone
+@onready var arm := $Systems/Camera/SpringArm3D
+@onready var checkFloor := $Systems/CheckFloor
+@onready var mesh := $Mesh
+@onready var anim := $Mesh/Lenny2/AnimationPlayer
+@onready var skeleton := $"Mesh/Lenny2/Armature/Skeleton3D"
 @onready var headBone = %HeadBone
+@onready var animTree := $AnimationTree
 @onready var camFpc := $%FPC
 @onready var camTpc := $%TPC
-@onready var StandCollision := $StandCollision
-@onready var CrouchCollision := $CrouchCollision
+@onready var StandCol := $StandCollision
+@onready var CrouchCol := $CrouchCollision
+#@onready var headBone := $Mesh/Charater/Armature/Skeleton3D/HeadBone
+#@onready var skeleton := $Mesh/Charater/Armature/Skeleton3D
+#@onready var anim := $MainCharacter/AnimationPlayer
 
 @export_enum("ThirdPerson", "FirstPerson") var cameraType:int = 0 : set = cameraUpdated
 
@@ -59,15 +60,15 @@ func _physics_process(delta):
 	animTree.set("parameters/MainState/conditions/onFloor", is_on_floor() or checkFloor.is_colliding())
 	
 	# Handle Jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor() and !crouch:
+	if Input.is_action_just_pressed("jump") and is_on_floor() and !crouch:
 		
 		velocity.y = JUMP_VELOCITY
 	
 	if Input.is_action_just_pressed("Crouch"):
 		crouch = !crouch
-		StandCollision.disabled = crouch
-		CrouchCollision.disabled = !crouch
-		animTree.set("parameters/CrouchStand/transition_request", ["Stand","Crouch"][int(crouch)])
+		StandCol.disabled = crouch
+		CrouchCol.disabled = !crouch
+		animTree.set("parameters/CrouchStand/transition_request", ["crouch_to_stand","stand_to_crouch"][int(crouch)])
 	
 	if Input.is_action_just_pressed("camSwitch"):
 #		Cameras.transition(camFpc if camTpc.current else camTpc)
@@ -77,8 +78,10 @@ func _physics_process(delta):
 		SPEED = lerpf(SPEED, CROUCH_SPEED, RUN_SPEED_ACC)
 	elif Input.is_action_pressed("Run"):
 		SPEED = lerpf(SPEED, RUN_SPEED, RUN_SPEED_ACC)
+		running = true
 	else:
 		SPEED = lerpf(SPEED, WALK_SPEED, RUN_SPEED_ACC)
+		running = false
 
 #	var pose = skeleton.get_bone_pose(skeleton.find_bone("mixamorig1_Spine1"))
 #	pose.origin.y = 32
@@ -92,7 +95,7 @@ func _physics_process(delta):
 	input_dir.z = Input.get_action_strength("backward") - Input.get_action_strength("forward")
 #	mesh.rotation.y = arm.rotation.y - PI
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.z)).normalized()
-	var __revRot = PI if cameraType == 1 else 0
+	var __revRot = PI if cameraType == 1 else 0.0
 	
 	input_dir = input_dir.rotated(Vector3.UP, lookCam.rotation.y - __revRot).normalized()
 	
@@ -103,7 +106,7 @@ func _physics_process(delta):
 	else:
 		mesh.rotation.y = lerp_angle(mesh.rotation.y, camFp.rotation.y, .2)
 	
-	var __control = 1 if is_on_floor() else airControl
+	var __control = 1.0 if is_on_floor() else airControl
 	var __interpolate = ACC if direction.length() > 0 else FRIC
 	velocity.x = lerp(velocity.x, input_dir.x * SPEED, __interpolate * __control) 
 	velocity.z = lerp(velocity.z, input_dir.z * SPEED, __interpolate * __control) 
@@ -117,6 +120,6 @@ func _physics_process(delta):
 	move_and_slide()
 
 
-func _process(delta):
+func _process(_delta):
 	if cameraType == 1:
 		pass

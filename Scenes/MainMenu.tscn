@@ -1,0 +1,83 @@
+[gd_scene load_steps=8 format=3 uid="uid://py6s1871salx"]
+
+[ext_resource type="FontFile" uid="uid://bq6v7c4b8ysqe" path="res://Assets/Fonts/OpenDyslexic3-Bold.ttf" id="1_xdife"]
+[ext_resource type="FontFile" uid="uid://blw2lt48401s2" path="res://Assets/Fonts/OpenDyslexic3-Regular.ttf" id="2_e3o3b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2iqvk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o7w46"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pjo08"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hwbv5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_js0vs"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 80
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("1_xdife")
+theme_override_font_sizes/font_size = 69
+text = "Game Title"
+
+[node name="Button" type="Button" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("2_e3o3b")
+theme_override_font_sizes/font_size = 39
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2iqvk")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_o7w46")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_pjo08")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hwbv5")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_js0vs")
+text = "Start Game"
+
+[node name="Button2" type="Button" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("2_e3o3b")
+theme_override_font_sizes/font_size = 39
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2iqvk")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_o7w46")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_pjo08")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hwbv5")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_js0vs")
+text = "Settings"
+
+[node name="Button3" type="Button" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("2_e3o3b")
+theme_override_font_sizes/font_size = 39
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2iqvk")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_o7w46")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_pjo08")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hwbv5")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_js0vs")
+text = "Credits
+"

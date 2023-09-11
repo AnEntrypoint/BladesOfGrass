@@ -5,7 +5,7 @@ var lastCollided = null
 @onready var fpc := $%FPC
 @onready var tpc := $%TPC
 
-func _process(delta):
+func _process(_delta):
 	
 	var cam = fpc if fpc.current else tpc
 	
