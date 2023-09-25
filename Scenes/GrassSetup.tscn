@@ -1,6 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://fsjqekcvhgn1"]
+[gd_scene load_steps=13 format=3 uid="uid://fsjqekcvhgn1"]
 
+[ext_resource type="Script" path="res://Scenes/GrassSetup.gd" id="1_mevhl"]
 [ext_resource type="Shader" uid="uid://dctnqqt8so3wn" path="res://Assets/Grass/Grass.tres" id="1_mfson"]
+[ext_resource type="Script" path="res://Scenes/Area3D.gd" id="2_gitwg"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_33gww"]
 fractal_type = 0
@@ -54,7 +56,10 @@ buffer = PackedFloat32Array(0, 0, -1.001, 10.9707, 0, 1.001, 0, 0, 1.001, 0, 0, 
 [sub_resource type="PlaneMesh" id="PlaneMesh_l7bph"]
 size = Vector2(30, 30)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ke58t"]
+
 [node name="Node3D" type="Node3D"]
+script = ExtResource("1_mevhl")
 
 [node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="."]
 material_override = SubResource("ShaderMaterial_lvu2g")
@@ -63,3 +68,13 @@ multimesh = SubResource("MultiMesh_m8ybs")
 
 [node name="Grassbase" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_l7bph")
+
+[node name="Area3D" type="Area3D" parent="."]
+script = ExtResource("2_gitwg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(28, 0, 0, 0, 28, 0, 0, 0, 28, 0, 0, 0)
+shape = SubResource("BoxShape3D_ke58t")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="Area3D" to="Area3D" method="_on_body_exited"]
