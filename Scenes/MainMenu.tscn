@@ -1,7 +1,29 @@
-[gd_scene load_steps=8 format=3 uid="uid://py6s1871salx"]
+[gd_scene load_steps=17 format=3 uid="uid://py6s1871salx"]
 
+[ext_resource type="PackedScene" uid="uid://c875dc2p611ce" path="res://Scenes/level.tscn" id="1_poc47"]
 [ext_resource type="FontFile" uid="uid://bq6v7c4b8ysqe" path="res://Assets/Fonts/OpenDyslexic3-Bold.ttf" id="1_xdife"]
 [ext_resource type="FontFile" uid="uid://blw2lt48401s2" path="res://Assets/Fonts/OpenDyslexic3-Regular.ttf" id="2_e3o3b"]
+[ext_resource type="PackedScene" uid="uid://b72yprif5s742" path="res://Scenes/player.tscn" id="2_hneiu"]
+[ext_resource type="Script" path="res://Scripts/Menu.gd" id="3_2gk12"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pweuk"]
+
+[sub_resource type="Sky" id="Sky_eknay"]
+sky_material = SubResource("ProceduralSkyMaterial_pweuk")
+
+[sub_resource type="Environment" id="Environment_pqs0q"]
+background_mode = 2
+sky = SubResource("Sky_eknay")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 3
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+glow_enabled = true
+volumetric_fog_enabled = true
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2iqvk"]
 
@@ -13,41 +35,148 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_js0vs"]
 
+[sub_resource type="Animation" id="Animation_npxla"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background/SubViewportContainer/SubViewport/Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(5.28168, 2.04293, 14.9999)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background/SubViewportContainer/SubViewport/Camera3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.476248, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7lfga"]
+resource_name = "camera_anim"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background/SubViewportContainer/SubViewport/Camera3D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 3.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-2.77902, 0.201055, 2.67583), Vector3(-2.14052, 1.28204, 3.49461), Vector3(-2.77902, 0.201055, 2.67583)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background/SubViewportContainer/SubViewport/Camera3D:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2, 3.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.294949, -0.302785, -0.0203547), Vector3(0, -0.168372, 0), Vector3(0.294949, -0.302785, -0.0203547)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f4nlv"]
+_data = {
+"RESET": SubResource("Animation_npxla"),
+"camera_anim": SubResource("Animation_7lfga")
+}
+
 [node name="CanvasLayer" type="CanvasLayer"]
 
-[node name="Control" type="Control" parent="."]
+[node name="Background" type="Node3D" parent="."]
+visible = false
+
+[node name="Level" parent="Background" instance=ExtResource("1_poc47")]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="Background/SubViewportContainer"]
+handle_input_locally = false
+msaa_3d = 3
+use_taa = true
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Background/SubViewportContainer/SubViewport"]
+transform = Transform3D(0.888721, 0, 0.458448, 0, 1, 0, -0.458448, 0, 0.888721, 5.28168, 2.04293, 14.9999)
+environment = SubResource("Environment_pqs0q")
+fov = 45.0
+
+[node name="Player" parent="Background" instance=ExtResource("2_hneiu")]
+transform = Transform3D(0.991454, 0, -0.130457, 0, 1, 0, 0.130457, 0, 0.991454, -1.558, 0.032, 0)
+
+[node name="Menu" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("3_2gk12")
 
-[node name="MarginContainer" type="MarginContainer" parent="Control"]
+[node name="ColorRect" type="ColorRect" parent="Menu"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 64
+color = Color(0.109804, 0.137255, 0.137255, 0.513726)
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 96
 theme_override_constants/margin_top = 80
 theme_override_constants/margin_right = 64
 theme_override_constants/margin_bottom = 80
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="Menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("1_xdife")
 theme_override_font_sizes/font_size = 69
-text = "Game Title"
+text = "Blades of Grass"
 
-[node name="Button" type="Button" parent="Control/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Menu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Start" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
+focus_neighbor_bottom = NodePath("../Settings")
+theme_override_colors/font_pressed_color = Color(0.196078, 0.662745, 0.133333, 1)
+theme_override_colors/font_hover_color = Color(0.431373, 0.686275, 0.501961, 1)
 theme_override_fonts/font = ExtResource("2_e3o3b")
 theme_override_font_sizes/font_size = 39
 theme_override_styles/normal = SubResource("StyleBoxEmpty_2iqvk")
@@ -57,9 +186,13 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_hwbv5")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_js0vs")
 text = "Start Game"
 
-[node name="Button2" type="Button" parent="Control/MarginContainer/VBoxContainer"]
+[node name="Settings" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
+focus_neighbor_top = NodePath("../Start")
+focus_neighbor_bottom = NodePath("../Credits")
+theme_override_colors/font_pressed_color = Color(0.196078, 0.662745, 0.133333, 1)
+theme_override_colors/font_hover_color = Color(0.431373, 0.686275, 0.501961, 1)
 theme_override_fonts/font = ExtResource("2_e3o3b")
 theme_override_font_sizes/font_size = 39
 theme_override_styles/normal = SubResource("StyleBoxEmpty_2iqvk")
@@ -69,9 +202,13 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_hwbv5")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_js0vs")
 text = "Settings"
 
-[node name="Button3" type="Button" parent="Control/MarginContainer/VBoxContainer"]
+[node name="Credits" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
+focus_neighbor_top = NodePath("../Settings")
+focus_neighbor_bottom = NodePath("../Quit")
+theme_override_colors/font_pressed_color = Color(0.196078, 0.662745, 0.133333, 1)
+theme_override_colors/font_hover_color = Color(0.431373, 0.686275, 0.501961, 1)
 theme_override_fonts/font = ExtResource("2_e3o3b")
 theme_override_font_sizes/font_size = 39
 theme_override_styles/normal = SubResource("StyleBoxEmpty_2iqvk")
@@ -81,3 +218,30 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_hwbv5")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_js0vs")
 text = "Credits
 "
+
+[node name="Quit" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+focus_neighbor_top = NodePath("../Credits")
+theme_override_colors/font_pressed_color = Color(0.196078, 0.662745, 0.133333, 1)
+theme_override_colors/font_hover_color = Color(0.431373, 0.686275, 0.501961, 1)
+theme_override_fonts/font = ExtResource("2_e3o3b")
+theme_override_font_sizes/font_size = 39
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2iqvk")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_o7w46")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_pjo08")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hwbv5")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_js0vs")
+text = "Quit"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "camera_anim"
+speed_scale = 0.2
+libraries = {
+"": SubResource("AnimationLibrary_f4nlv")
+}
+
+[connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/Start" to="Menu" method="_on_start_pressed"]
+[connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/Settings" to="Menu" method="_on_settings_pressed"]
+[connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/Credits" to="Menu" method="_on_credits_pressed"]
+[connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/Quit" to="Menu" method="_on_quit_pressed"]

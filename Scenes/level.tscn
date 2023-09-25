@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://c875dc2p611ce"]
+[gd_scene load_steps=34 format=3 uid="uid://c875dc2p611ce"]
 
 [ext_resource type="Material" uid="uid://tb714sfxrtre" path="res://Assets/Materials/ground.tres" id="1_rcqxu"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="2_4vx24"]
@@ -17,6 +17,20 @@
 [ext_resource type="Texture2D" uid="uid://gue8ra3iiimt" path="res://Assets/Trees/willow_3.png" id="14_2u1kq"]
 [ext_resource type="Texture2D" uid="uid://d4hjorr3dubur" path="res://Assets/Trees/willow_4.png" id="15_ip4s6"]
 [ext_resource type="Texture2D" uid="uid://7mc0lhsone5o" path="res://Assets/Trees/willow_5.png" id="16_7i3yt"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0aw5k"]
+sky_horizon_color = Color(0.632524, 0.661539, 0.666912, 1)
+ground_bottom_color = Color(0.145098, 0.192157, 0.117647, 1)
+ground_horizon_color = Color(0.632524, 0.661539, 0.666912, 1)
+
+[sub_resource type="Sky" id="Sky_vdf8r"]
+sky_material = SubResource("ProceduralSkyMaterial_0aw5k")
+
+[sub_resource type="Environment" id="Environment_owosp"]
+background_mode = 2
+sky = SubResource("Sky_vdf8r")
+ambient_light_source = 3
+sdfgi_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_khe7k"]
 resource_name = "Tree_0Mat"
@@ -108,7 +122,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_y7hw5")
 
-[sub_resource type="Resource" id="Resource_65due"]
+[sub_resource type="Resource" id="Resource_g8q8w"]
 script = ExtResource("4_0kvd8")
 amount = 4200
 enabled = true
@@ -117,7 +131,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_srjvp"]
+[sub_resource type="Resource" id="Resource_u22h7"]
 script = ExtResource("5_6xkeu")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(10, 360, 3.5)
@@ -128,7 +142,7 @@ custom_seed = 1
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_vfrw8"]
+[sub_resource type="Resource" id="Resource_hc5rx"]
 script = ExtResource("6_lpxeg")
 iterations = 3
 offset_step = 0.2
@@ -140,7 +154,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_nok70"]
+[sub_resource type="Resource" id="Resource_krdsm"]
 script = ExtResource("7_fry3n")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -156,9 +170,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_kb10h"]
+[sub_resource type="Resource" id="Resource_anqav"]
 script = ExtResource("3_obeiq")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_65due"), SubResource("Resource_srjvp"), SubResource("Resource_vfrw8"), SubResource("Resource_nok70")])
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_g8q8w"), SubResource("Resource_u22h7"), SubResource("Resource_hc5rx"), SubResource("Resource_krdsm")])
 
 [sub_resource type="Resource" id="Resource_sqp37"]
 script = ExtResource("10_jmvq4")
@@ -166,10 +180,17 @@ size = Vector3(75, 1, 75)
 
 [sub_resource type="Resource" id="Resource_1k4eb"]
 script = ExtResource("10_prcn6")
-radius = 12.0
+radius = 8.45633
 
 [node name="Level" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0627594, 0, 0.155319)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 27.6783, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_owosp")
 
 [node name="floor" type="CSGBox3D" parent="."]
 material_override = ExtResource("1_rcqxu")
@@ -190,7 +211,7 @@ skeleton = NodePath("")
 
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("2_4vx24")
-modifier_stack = SubResource("Resource_kb10h")
+modifier_stack = SubResource("Resource_anqav")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
