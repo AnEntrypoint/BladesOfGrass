@@ -5,7 +5,7 @@ var active = preload("res://addons/kenney_prototype_tools/materials/green/materi
 var disabled = preload("res://addons/kenney_prototype_tools/materials/red/material_01.tres")
 var hovered = false
 
-var dust = preload("res://dust.tscn")
+var dust = preload("res://Scenes/dust.tscn")
 
 @onready var anim = $AnimationPlayer
 func _ready():
