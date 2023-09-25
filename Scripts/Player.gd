@@ -20,7 +20,7 @@ var running = false
 var lookCam = null
 
 
-@onready var Cameras := $Systems/Camera
+@onready var camera = $Systems/Camera
 @onready var camFp := $Systems/Camera/FirstPersonCamera
 @onready var arm := $Systems/Camera/SpringArm3D
 @onready var checkFloor := $Systems/CheckFloor
