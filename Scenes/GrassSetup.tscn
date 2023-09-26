@@ -1,8 +1,8 @@
 [gd_scene load_steps=13 format=3 uid="uid://fsjqekcvhgn1"]
 
-[ext_resource type="Script" path="res://Scenes/GrassSetup.gd" id="1_mevhl"]
+[ext_resource type="Script" path="res://Scripts/GrassSetup.gd" id="1_mevhl"]
 [ext_resource type="Shader" uid="uid://dctnqqt8so3wn" path="res://Assets/Grass/Grass.tres" id="1_mfson"]
-[ext_resource type="Script" path="res://Scenes/Area3D.gd" id="2_gitwg"]
+[ext_resource type="Script" path="res://Scripts/Area3D.gd" id="2_gitwg"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_33gww"]
 fractal_type = 0

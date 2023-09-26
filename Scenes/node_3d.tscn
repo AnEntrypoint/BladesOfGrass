@@ -1,7 +1,7 @@
 [gd_scene load_steps=37 format=3 uid="uid://c6smqmdsabtrd"]
 
 [ext_resource type="Material" uid="uid://bx6qeabdhq2s" path="res://addons/kenney_prototype_tools/materials/dark/material_01.tres" id="1_r17fl"]
-[ext_resource type="PackedScene" uid="uid://drak4ohtv0qjb" path="res://Scenes/player.tscn" id="2_rt810"]
+[ext_resource type="PackedScene" uid="uid://b72yprif5s742" path="res://Scenes/player.tscn" id="2_rt810"]
 [ext_resource type="Material" uid="uid://8ylcw0h1lkhg" path="res://addons/kenney_prototype_tools/materials/orange/material_01.tres" id="6_aw3us"]
 [ext_resource type="Material" uid="uid://ddal25jay8fq1" path="res://addons/kenney_prototype_tools/materials/purple/material_01.tres" id="7_0c8g5"]
 [ext_resource type="Script" path="res://Scripts/Button.gd" id="8_lri2h"]
