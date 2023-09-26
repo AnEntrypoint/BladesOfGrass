@@ -59,6 +59,8 @@ func _physics_process(delta):
 	animTree.set("parameters/MainState/conditions/onAir", !is_on_floor())
 	animTree.set("parameters/MainState/conditions/onFloor", is_on_floor() or checkFloor.is_colliding())
 	
+	if Input.is_action_just_pressed("escape"):
+		get_tree().quit()
 	# Handle Jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor() and !crouch:
 		
