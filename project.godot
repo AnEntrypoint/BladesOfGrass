@@ -10,7 +10,9 @@ config_version=5
 
 [application]
 
-config/name="BoG"
+config/name="BladesOfGrass"
+config/description="A short but great adventure"
+config/version="0.00alpha"
 run/main_scene="res://Scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
