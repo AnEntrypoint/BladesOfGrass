@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dab2wyij2vmu1"
+path="res://.godot/imported/Wood_Fence_Gate_01.obj-e5426644fe0d092902ff016ef998be61.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Wood_Fence_Gate_01.obj-e5426644fe0d092902ff016ef998be61.mesh"]
+
+source_file="res://Assets/Kit/3D Nature pack/Models/Wood_Fence_Gate_01.obj"
+dest_files=["res://.godot/imported/Wood_Fence_Gate_01.obj-e5426644fe0d092902ff016ef998be61.mesh", "res://.godot/imported/Wood_Fence_Gate_01.obj-e5426644fe0d092902ff016ef998be61.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

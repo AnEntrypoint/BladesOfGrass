@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://42bfjfx0d54g"
+path="res://.godot/imported/Brown_Cliff_Green_Top_01.obj-5b0bcfc7be4def5b725fe37df0ac101a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Brown_Cliff_Green_Top_01.obj-5b0bcfc7be4def5b725fe37df0ac101a.mesh"]
+
+source_file="res://Assets/Kit/3D Nature pack/Models/Brown_Cliff_Green_Top_01.obj"
+dest_files=["res://.godot/imported/Brown_Cliff_Green_Top_01.obj-5b0bcfc7be4def5b725fe37df0ac101a.mesh", "res://.godot/imported/Brown_Cliff_Green_Top_01.obj-5b0bcfc7be4def5b725fe37df0ac101a.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

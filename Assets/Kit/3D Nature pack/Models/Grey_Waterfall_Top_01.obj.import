@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://x2btr7o21od3"
+path="res://.godot/imported/Grey_Waterfall_Top_01.obj-dbd701bbd7e0868b673a9271827832d0.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Grey_Waterfall_Top_01.obj-dbd701bbd7e0868b673a9271827832d0.mesh"]
+
+source_file="res://Assets/Kit/3D Nature pack/Models/Grey_Waterfall_Top_01.obj"
+dest_files=["res://.godot/imported/Grey_Waterfall_Top_01.obj-dbd701bbd7e0868b673a9271827832d0.mesh", "res://.godot/imported/Grey_Waterfall_Top_01.obj-dbd701bbd7e0868b673a9271827832d0.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

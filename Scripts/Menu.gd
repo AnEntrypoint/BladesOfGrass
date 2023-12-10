@@ -6,17 +6,14 @@ func _ready():
 	$MarginContainer/VBoxContainer/Start.grab_focus()
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
 
 func _on_start_pressed():
-	# get_tree().change_scene_to_file("Level0") ## MAKE SOME LEVELS ALREADY
+	get_tree().change_scene_to_file("res://Scenes/LVL0.tscn")
 	pass 
-
-
 
 func _on_settings_pressed():
 	#var settings = load("SETTINGS").instance() ## MAKE SETTINGS SCENE

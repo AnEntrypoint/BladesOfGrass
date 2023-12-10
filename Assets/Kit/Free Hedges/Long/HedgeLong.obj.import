@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://di82mcbnbd3vs"
+path="res://.godot/imported/HedgeLong.obj-aab50515fdca3116c1848c712803607e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/HedgeLong.obj-aab50515fdca3116c1848c712803607e.mesh"]
+
+source_file="res://Assets/Kit/Free Hedges/Long/HedgeLong.obj"
+dest_files=["res://.godot/imported/HedgeLong.obj-aab50515fdca3116c1848c712803607e.mesh", "res://.godot/imported/HedgeLong.obj-aab50515fdca3116c1848c712803607e.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

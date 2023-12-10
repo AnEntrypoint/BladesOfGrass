@@ -79,17 +79,16 @@ static func get_or_create_multimesh(item: ProtonScatterItem, count: int) -> Mult
 		item_root.add_child(mmi, true)
 
 		mmi.set_owner(item_root.owner)
-
 	if not mmi.multimesh:
 		mmi.multimesh = MultiMesh.new()
-
-	mmi.position = Vector3.ZERO
-	mmi.set_cast_shadows_setting(item.override_cast_shadow)
-	mmi.set_material_override(item.override_material)
 
 	var mesh_instance: MeshInstance3D = get_merged_meshes_from(item)
 	if not mesh_instance:
 		return
+
+	mmi.position = Vector3.ZERO
+	mmi.material_override = get_final_material(item, mesh_instance)
+	mmi.set_cast_shadows_setting(item.override_cast_shadow)
 
 	mmi.multimesh.instance_count = 0 # Set this to zero or you can't change the other values
 	mmi.multimesh.mesh = mesh_instance.mesh
@@ -108,10 +107,16 @@ static func get_or_create_multimesh(item: ProtonScatterItem, count: int) -> Mult
 	return mmi
 
 
-static func get_or_create_multimesh_chunk(item: ProtonScatterItem, index: Vector3i, count) -> MultiMeshInstance3D:
+static func get_or_create_multimesh_chunk(item: ProtonScatterItem,
+										mesh_instance: MeshInstance3D,
+										index: Vector3i,
+										count: int)\
+										 -> MultiMeshInstance3D:
 	var item_root := get_or_create_item_root(item)
 	var chunk_name = "MultiMeshInstance3D" + "_%s_%s_%s"%[index.x, index.y, index.z]
 	var mmi: MultiMeshInstance3D = item_root.get_node_or_null(chunk_name)
+	if not mesh_instance:
+		return
 
 	if not mmi:
 		mmi = MultiMeshInstance3D.new()
@@ -119,20 +124,14 @@ static func get_or_create_multimesh_chunk(item: ProtonScatterItem, index: Vector
 		# if set_name is used after add_child it is crazy slow
 		# This doesn't make much sense but it is definitely the case.
 		# About a 100x slowdown was observed in this case
-		item_root.add_child(mmi, true)
-
-		mmi.set_owner(item_root.owner)
+		item_root.add_child.bind(mmi, true).call_deferred()
 
 	if not mmi.multimesh:
 		mmi.multimesh = MultiMesh.new()
 
 	mmi.position = Vector3.ZERO
+	mmi.material_override = get_final_material(item, mesh_instance)
 	mmi.set_cast_shadows_setting(item.override_cast_shadow)
-	mmi.set_material_override(item.override_material)
-
-	var mesh_instance: MeshInstance3D = get_merged_meshes_from(item)
-	if not mesh_instance:
-		return
 
 	mmi.multimesh.instance_count = 0 # Set this to zero or you can't change the other values
 	mmi.multimesh.mesh = mesh_instance.mesh
@@ -145,8 +144,6 @@ static func get_or_create_multimesh_chunk(item: ProtonScatterItem, index: Vector
 	mmi.visibility_range_fade_mode 		= item.visibility_range_fade_mode
 
 	mmi.multimesh.instance_count = count
-
-	mesh_instance.queue_free()
 
 	return mmi
 
@@ -165,7 +162,8 @@ static func get_or_create_particles(item: ProtonScatterItem) -> GPUParticles3D:
 	var mesh_instance: MeshInstance3D = get_merged_meshes_from(item)
 	if not mesh_instance:
 		return
-
+	
+	particles.material_override = get_final_material(item, mesh_instance)
 	particles.set_draw_pass_mesh(0, mesh_instance.mesh)
 	particles.position = Vector3.ZERO
 	particles.local_coords = true
@@ -223,7 +221,7 @@ static func request_parent_to_rebuild(node: Node, deferred := true) -> void:
 # Recursively search for all MeshInstances3D in the node's children and
 # returns them all in an array. If node is a MeshInstance, it will also be
 # added to the array
-static func get_all_mesh_instances_from(node: Node3D) -> Array[MeshInstance3D]:
+static func get_all_mesh_instances_from(node: Node) -> Array[MeshInstance3D]:
 	var res: Array[MeshInstance3D] = []
 
 	if node is MeshInstance3D:
@@ -233,6 +231,19 @@ static func get_all_mesh_instances_from(node: Node3D) -> Array[MeshInstance3D]:
 		res.append_array(get_all_mesh_instances_from(c))
 
 	return res
+
+
+static func get_final_material(item: ProtonScatterItem, mi: MeshInstance3D) -> Material:
+	if item.override_material:
+		return item.override_material
+	
+	if mi.material_override:
+		return mi.material_override
+	
+	if mi.get_surface_override_material(0):
+		return mi.get_surface_override_material(0)
+	
+	return null
 
 
 # Merge all the MeshInstances from the local node tree into a single MeshInstance.
@@ -264,13 +275,25 @@ static func get_merged_meshes_from(item: ProtonScatterItem) -> MeshInstance3D:
 
 	if mesh_instances.is_empty():
 		return null
+	
+	# If there's only one mesh instance we can reuse it directly if the materials allow it.
+	if mesh_instances.size() == 1:
+		# Duplicate the meshinstance, not the mesh resource
+		var mi: MeshInstance3D = mesh_instances[0].duplicate()
+		
+		# MI uses a material override, all surface materials will be ignored
+		if mi.material_override:
+			return mi
+		
+		var surface_overrides_count := 0
+		for i in mi.get_surface_override_material_count():
+			if mi.get_surface_override_material(i):
+				surface_overrides_count += 1
+		
+		# If there's one material override or less, no duplicate mesh is required.
+		if surface_overrides_count <= 1:
+			return mi
 
-	# Only one mesh instance found, no merge required.
-	# TODO: Uncomment these two lines once we find a way to make surface material
-	# overrides play nicely with a single mesh and instancing.
-	# For now, this means meshes will always be duplicated in each scenes, which is bad.
-#	if mesh_instances.size() == 1:
-#		return mesh_instances[0]
 
 	# Helper lambdas
 	var get_material_for_surface = func (mi: MeshInstance3D, idx: int) -> Material:
@@ -404,7 +427,7 @@ static func get_merged_meshes_from(item: ProtonScatterItem) -> MeshInstance3D:
 	return instance
 
 
-static func get_all_static_bodies_from(node: Node3D) -> Array[StaticBody3D]:
+static func get_all_static_bodies_from(node: Node) -> Array[StaticBody3D]:
 	var res: Array[StaticBody3D] = []
 
 	if node is StaticBody3D:

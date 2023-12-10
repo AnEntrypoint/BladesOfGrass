@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="BoG"
-run/main_scene="res://Scenes/Debug_World.tscn"
-config/features=PackedStringArray("4.1", "Forward Plus")
+run/main_scene="res://demo/Demo.tscn"
+config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-SceneSwitcher="*res://scene_switcher.gd"
+SceneSwitcher="*res://Scripts/scene_switcher.gd"
 
 [display]
 
@@ -32,7 +32,7 @@ project/assembly_name="BoG"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/proton_scatter/plugin.cfg")
+enabled=PackedStringArray("res://addons/proton_scatter/plugin.cfg", "res://addons/terrain_3d/plugin.cfg")
 
 [input]
 
@@ -93,6 +93,7 @@ limits/message_queue/max_size_kb=8192
 
 [rendering]
 
+renderer/rendering_method.web="forward_plus"
 camera/depth_of_field/depth_of_field_bokeh_quality=2
 anti_aliasing/quality/msaa_2d=2
 anti_aliasing/quality/msaa_3d=2

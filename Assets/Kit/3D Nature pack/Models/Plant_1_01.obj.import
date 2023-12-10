@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ci4ffcp4y2fhh"
+path="res://.godot/imported/Plant_1_01.obj-ecf100ef70f77b582336be6bbfeef111.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Plant_1_01.obj-ecf100ef70f77b582336be6bbfeef111.mesh"]
+
+source_file="res://Assets/Kit/3D Nature pack/Models/Plant_1_01.obj"
+dest_files=["res://.godot/imported/Plant_1_01.obj-ecf100ef70f77b582336be6bbfeef111.mesh", "res://.godot/imported/Plant_1_01.obj-ecf100ef70f77b582336be6bbfeef111.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

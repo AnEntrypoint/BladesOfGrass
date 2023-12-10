@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://f8fcqm45m8qe"]
+
+[ext_resource type="FontFile" uid="uid://bq6v7c4b8ysqe" path="res://Assets/Fonts/OpenDyslexic3-Bold.ttf" id="1_42yxw"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ecuc1"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="LabelSettings" id="LabelSettings_3dq2b"]
+font = ExtResource("1_42yxw")
+font_size = 71
+
+[node name="textHint2" type="Sprite3D"]
+double_sided = false
+texture = SubResource("ViewportTexture_ecuc1")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(997, 512)
+
+[node name="Label" type="Label" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -330.5
+offset_top = -71.0
+offset_right = 330.5
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "WHAT ARE YOU 
+WAITING FOR ? "
+label_settings = SubResource("LabelSettings_3dq2b")
+horizontal_alignment = 1
+vertical_alignment = 1

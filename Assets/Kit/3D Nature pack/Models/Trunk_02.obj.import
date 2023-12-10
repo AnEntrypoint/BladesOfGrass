@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://pfpcidjwtbvf"
+path="res://.godot/imported/Trunk_02.obj-8ab366fcba9a30b86f80224dd87c6e8b.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Trunk_02.obj-8ab366fcba9a30b86f80224dd87c6e8b.mesh"]
+
+source_file="res://Assets/Kit/3D Nature pack/Models/Trunk_02.obj"
+dest_files=["res://.godot/imported/Trunk_02.obj-8ab366fcba9a30b86f80224dd87c6e8b.mesh", "res://.godot/imported/Trunk_02.obj-8ab366fcba9a30b86f80224dd87c6e8b.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

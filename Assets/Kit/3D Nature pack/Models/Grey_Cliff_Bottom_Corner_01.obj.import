@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://nd7dvx3qw34q"
+path="res://.godot/imported/Grey_Cliff_Bottom_Corner_01.obj-6a2950fed8d5ea2956bf4dca5214b5b3.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Grey_Cliff_Bottom_Corner_01.obj-6a2950fed8d5ea2956bf4dca5214b5b3.mesh"]
+
+source_file="res://Assets/Kit/3D Nature pack/Models/Grey_Cliff_Bottom_Corner_01.obj"
+dest_files=["res://.godot/imported/Grey_Cliff_Bottom_Corner_01.obj-6a2950fed8d5ea2956bf4dca5214b5b3.mesh", "res://.godot/imported/Grey_Cliff_Bottom_Corner_01.obj-6a2950fed8d5ea2956bf4dca5214b5b3.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

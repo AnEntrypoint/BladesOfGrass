@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c6glccsto0kjg"
+path="res://.godot/imported/Tent_01.obj-b1a40e58c15b3e4e83492fa2077585e1.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Tent_01.obj-b1a40e58c15b3e4e83492fa2077585e1.mesh"]
+
+source_file="res://Assets/Kit/3D Nature pack/Models/Tent_01.obj"
+dest_files=["res://.godot/imported/Tent_01.obj-b1a40e58c15b3e4e83492fa2077585e1.mesh", "res://.godot/imported/Tent_01.obj-b1a40e58c15b3e4e83492fa2077585e1.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

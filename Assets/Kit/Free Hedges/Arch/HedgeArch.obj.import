@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cn5ik50ds1alf"
+path="res://.godot/imported/HedgeArch.obj-1d5c066a2854fb5c3d434158a877f3da.mesh"
+
+[deps]
+
+files=["res://.godot/imported/HedgeArch.obj-1d5c066a2854fb5c3d434158a877f3da.mesh"]
+
+source_file="res://Assets/Kit/Free Hedges/Arch/HedgeArch.obj"
+dest_files=["res://.godot/imported/HedgeArch.obj-1d5c066a2854fb5c3d434158a877f3da.mesh", "res://.godot/imported/HedgeArch.obj-1d5c066a2854fb5c3d434158a877f3da.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

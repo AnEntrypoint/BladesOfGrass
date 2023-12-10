@@ -123,6 +123,7 @@ var output_root: Marker3D
 var transforms: ProtonScatterTransformList
 var editor_plugin # Holds a reference to the EditorPlugin. Used by other parts.
 var is_ready := false
+var build_version := 0
 
 # Internal variables
 var _thread: Thread
@@ -250,12 +251,6 @@ func is_thread_running() -> bool:
 
 # Used by some modifiers to retrieve a physics helper node
 func get_physics_helper() -> ProtonScatterPhysicsHelper:
-	if not is_instance_valid(_physics_helper):
-		_physics_helper = ProtonScatterPhysicsHelper.new()
-		_physics_helper.name = "PhysicsHelper"
-		add_child.bind(_physics_helper, true, INTERNAL_MODE_BACK).call_deferred()
-		await get_tree().process_frame
-
 	return _physics_helper
 
 
@@ -459,6 +454,8 @@ func _update_split_multimeshes() -> void:
 
 		static_body.queue_free()
 
+		# Cache the mesh instance to be used for the chunks
+		var mesh_instance: MeshInstance3D = ProtonScatterUtil.get_merged_meshes_from(item)
 		# The relevant transforms are now ordered in chunks
 		for xi in splits.x:
 			for yi in splits.y:
@@ -466,7 +463,11 @@ func _update_split_multimeshes() -> void:
 					var chunk_elements = transform_chunks[xi][yi][zi].size()
 					if chunk_elements == 0:
 						continue
-					var mmi = ProtonScatterUtil.get_or_create_multimesh_chunk(item, Vector3i(xi, yi, zi), chunk_elements)
+					var mmi = ProtonScatterUtil.get_or_create_multimesh_chunk(
+													item, 
+													mesh_instance, 
+													Vector3i(xi, yi, zi), 
+													chunk_elements)
 					if not mmi:
 						continue
 
@@ -481,7 +482,7 @@ func _update_split_multimeshes() -> void:
 						t = transform_chunks[xi][yi][zi][i]
 						t.origin -= center
 						mmi.multimesh.set_instance_transform(i, t)
-
+		mesh_instance.queue_free()
 		offset += count
 
 
@@ -667,6 +668,11 @@ func _perform_sanity_check() -> void:
 
 	domain.discover_shapes(self)
 
+	if not is_instance_valid(_physics_helper):
+		_physics_helper = ProtonScatterPhysicsHelper.new()
+		_physics_helper.name = "PhysicsHelper"
+		add_child(_physics_helper, true, INTERNAL_MODE_BACK)
+
 	# Retrigger the parent setter, in case the parent node no longer exists or changed type.
 	scatter_parent = scatter_parent
 
@@ -714,5 +720,11 @@ func _on_transforms_ready(new_transforms: ProtonScatterTransformList) -> void:
 			_update_particles_system()
 
 	update_gizmos()
+	build_version += 1
+	
+	if not is_inside_tree():
+		return
+	
 	await get_tree().process_frame
+
 	build_completed.emit()

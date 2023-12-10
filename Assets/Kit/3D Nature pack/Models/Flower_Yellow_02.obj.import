@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dcbf4ncfqv8hu"
+path="res://.godot/imported/Flower_Yellow_02.obj-972eae786e81ad8f577177e9c3d8c61e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Flower_Yellow_02.obj-972eae786e81ad8f577177e9c3d8c61e.mesh"]
+
+source_file="res://Assets/Kit/3D Nature pack/Models/Flower_Yellow_02.obj"
+dest_files=["res://.godot/imported/Flower_Yellow_02.obj-972eae786e81ad8f577177e9c3d8c61e.mesh", "res://.godot/imported/Flower_Yellow_02.obj-972eae786e81ad8f577177e9c3d8c61e.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

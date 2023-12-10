@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://10jygk4tfwr2"
+path="res://.godot/imported/Oak_Green_01.obj-961876af86b4794c6ebdc8226cd0eb22.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Oak_Green_01.obj-961876af86b4794c6ebdc8226cd0eb22.mesh"]
+
+source_file="res://Assets/Kit/3D Nature pack/Models/Oak_Green_01.obj"
+dest_files=["res://.godot/imported/Oak_Green_01.obj-961876af86b4794c6ebdc8226cd0eb22.mesh", "res://.godot/imported/Oak_Green_01.obj-961876af86b4794c6ebdc8226cd0eb22.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

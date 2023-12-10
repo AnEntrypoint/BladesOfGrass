@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://4qxnk25ybyxo"
+path="res://.godot/imported/HedgeSmallRound.obj-3282f970207ca9b463eb0962c0bfa3d2.mesh"
+
+[deps]
+
+files=["res://.godot/imported/HedgeSmallRound.obj-3282f970207ca9b463eb0962c0bfa3d2.mesh"]
+
+source_file="res://Assets/Kit/Free Hedges/SmallRound/HedgeSmallRound.obj"
+dest_files=["res://.godot/imported/HedgeSmallRound.obj-3282f970207ca9b463eb0962c0bfa3d2.mesh", "res://.godot/imported/HedgeSmallRound.obj-3282f970207ca9b463eb0962c0bfa3d2.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

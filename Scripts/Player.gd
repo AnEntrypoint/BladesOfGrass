@@ -1,7 +1,6 @@
 extends CharacterBody3D
 
 
-
 const WALK_SPEED := 3.0
 const RUN_SPEED := 5.0
 const CROUCH_SPEED := 1.0
@@ -16,9 +15,9 @@ var airControl = .2
 var SPEED = 0
 var crouch = false
 var jumping = false
+var can_jump = true
 var running = false
 var lookCam = null
-
 
 @onready var camera = $Systems/Camera
 @onready var camFp := $Systems/Camera/FirstPersonCamera
@@ -33,13 +32,38 @@ var lookCam = null
 @onready var camTpc := $%TPC
 @onready var StandCol := $StandCollision
 @onready var CrouchCol := $CrouchCollision
-#@onready var headBone := $Mesh/Charater/Armature/Skeleton3D/HeadBone
-#@onready var skeleton := $Mesh/Charater/Armature/Skeleton3D
-#@onready var anim := $MainCharacter/AnimationPlayer
 
 @export_enum("ThirdPerson", "FirstPerson") var cameraType:int = 0 : set = cameraUpdated
 
+func can_climb():
+	if !$Systems/Camera/FirstPersonCamera/ChestRay.is_colliding():
+		return false
+	for ray in $Systems/Camera/FirstPersonCamera/HeadRays.get_children():
+		if ray.is_colliding():
+			return false
+		return true
 
+func climb():
+	# Restrict Movement
+	velocity = Vector3.ZERO
+	can_jump = false
+	
+	var v_move_time := 0.4
+	var _h_move_time := 0.2
+	if !crouch:
+		#Vertical Transforms
+		var vertical_movement = global_transform.origin + Vector3(0,1.85,0)
+		var vm_tween = get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+		var camera_tween = get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+		
+		vm_tween.tween_property(self, "global_transform:origin", vertical_movement, v_move_time)
+		camera_tween.tween_property(camera, "rotation_degrees:x", clamp(camera.rotation_degrees.x - 20.0,-85,90), v_move_time)
+		camera_tween.tween_property(camera, "rotation_degrees:z", -5.0*sign(randf_range(-10000, 10000)), v_move_time)
+		
+		await vm_tween.finished
+		
+		#Horizontal Transforms
+		
 func _ready():
 	animTree.active = true
 	cameraUpdated(cameraType)
@@ -62,9 +86,10 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("escape"):
 		get_tree().quit()
 	# Handle Jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor() and !crouch:
-		
+	if Input.is_action_just_pressed("jump") and is_on_floor() and !crouch and can_jump:
 		velocity.y = JUMP_VELOCITY
+	elif Input.is_action_just_pressed("jump") and can_climb():
+		climb()
 	
 	if Input.is_action_just_pressed("Crouch"):
 		crouch = !crouch
@@ -84,12 +109,7 @@ func _physics_process(delta):
 	else:
 		SPEED = lerpf(SPEED, WALK_SPEED, RUN_SPEED_ACC)
 		running = false
-
-#	var pose = skeleton.get_bone_pose(skeleton.find_bone("mixamorig1_Spine1"))
-#	pose.origin.y = 32
-#	skeleton.set_bone_global_pose_override(skeleton.find_bone("mixamorig1_Spine1"), Transform3D(), 0,0 )
-#
-
+		
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Vector3()
@@ -121,7 +141,7 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-
 func _process(_delta):
 	if cameraType == 1:
 		pass
+
